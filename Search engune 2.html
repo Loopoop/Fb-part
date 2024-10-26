@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>joe</title>
+
+<style type="text/css">
+body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+.search-box { width: max-content; }
+.search { background-color: #f6f6f6; padding: 0px 9px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; height: 40px; border-radius: 50px; width: max-content; outline-style: double; }
+#input { background-color: transparent; color: blue; border: none; outline: none; }
+#button { background-color: transparent; border: none; outline: none; }
+.seg ul { border: none; background-color: #f6f6f6; border-radius: 25px; padding: 0px 5px; }
+.seg ul li { list-style: none; padding: 3px 15px; cursor: pointer; }
+.seg ul li:hover { background-color: blue; color: white; }
+
+</style>
+</head>
+<body>
+
+<div class="search-box">
+    <div class="search">
+        <input type="text" id="input" placeholder="search">
+        <button onclick="processinput()" id="button">🔍</button>
+    </div>
+    <div class="seg" id="segment"></div>
+    <h1 id="top">kamau</h1>
+</div>
+
+<script type="text/javascript">
+function processinput() {
+    const input = document.getElementById("input").value.toLowerCase();
+    const top = document.getElementById("top");
+    if (input.includes("run")) {
+        top.innerHTML = "running";
+    }
+}
+
+let words = ['facebook', 'whatsapp jim', 'chat bot', 'chatapp', 'learn html', 'run', 'build your code', 'get skills from bar'];
+const seg = document.getElementById("segment");
+const input = document.getElementById("input");
+
+input.onkeyup = function() {
+    let suggested = [];
+    let inputVal = input.value;
+
+    if (inputVal.length) {
+        suggested = words.filter((keyword) => {
+            return keyword.toLowerCase().includes(inputVal.toLowerCase());
+        });
+    }
+    
+    display(suggested);
+    if (!suggested.length) {
+        seg.innerHTML = '';
+    }
+};
+
+function display(suggested) {
+    const content = suggested.map((list) => {
+        return "<li onclick='selectinput(this)'>" + list + "</li>";
+    });
+    seg.innerHTML = "<ul>" + content.join('') + "</ul>";
+}
+
+function selectinput(list) {
+    input.value = list.innerHTML;
+    seg.innerHTML = '';
+}
+</script>
+
+</body>
+</html>
